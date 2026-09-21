@@ -1,0 +1,165 @@
+@import "@fontsource-variable/plus-jakarta-sans";
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+:root {
+  --layout-inline-gutter: clamp(8rem, 32vw, 32rem);
+  --radius: 0.625rem;
+  --background: #f7f7f4;
+  --foreground: #10110f;
+  --card: #ffffff;
+  --card-foreground: #10110f;
+  --popover: #ffffff;
+  --popover-foreground: #10110f;
+  --primary: #10110f;
+  --primary-foreground: #fafafa;
+  --secondary: #eeeeea;
+  --secondary-foreground: #1c1d1a;
+  --muted: #f0f0eb;
+  --muted-foreground: #696a64;
+  --accent: #e8e8e2;
+  --accent-foreground: #1c1d1a;
+  --destructive: #dc2626;
+  --border: #deded7;
+  --input: #d8d8d1;
+  --ring: #8477ff;
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    min-width: 320px;
+    margin: 0;
+    font-family: var(--font-sans);
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  code,
+  pre {
+    font-family: var(--font-mono);
+  }
+}
+
+@layer components {
+  .page-shell,
+  .navbar-frame {
+    width: calc(100% - var(--layout-inline-gutter));
+    max-width: 110rem;
+  }
+
+  .content-section {
+    @apply mr-auto ml-0 w-full max-w-[92rem] scroll-mt-24 px-5 pt-20 sm:px-[3vw] sm:pt-24;
+  }
+
+  .content-footer {
+    @apply mr-auto ml-0 w-full max-w-[92rem] px-5 sm:px-[3vw];
+  }
+
+  .eyebrow {
+    @apply mb-2.5 text-[11px] font-extrabold uppercase tracking-[0.14em] text-muted-foreground;
+  }
+
+  .grid-surface {
+    background-color: var(--card);
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .hero-surface {
+    background: var(--background);
+  }
+
+  .hero-surface::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 44px 44px;
+    opacity: 0.9;
+    pointer-events: none;
+    -webkit-mask-image: radial-gradient(ellipse 88% 84% at 50% 44%, #000 28%, rgba(0, 0, 0, 0.78) 58%, transparent 100%);
+    mask-image: radial-gradient(ellipse 88% 84% at 50% 44%, #000 28%, rgba(0, 0, 0, 0.78) 58%, transparent 100%);
+  }
+
+  .hero-surface::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background:
+      linear-gradient(to right, var(--background), transparent 9%, transparent 91%, var(--background)),
+      linear-gradient(to bottom, color-mix(in srgb, var(--background) 65%, transparent), transparent 16%, transparent 72%, var(--background));
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .page-shell,
+  .navbar-frame {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
