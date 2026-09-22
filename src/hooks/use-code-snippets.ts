@@ -1,6 +1,7 @@
 import { useMemo } from "react"
 import type { CodeSnippets } from "@/types"
 import { useI18n } from "@/i18n"
+import { DEFAULT_ENDPOINT } from "@/config"
 
 interface SnippetParams {
   gatewayUrl: string
@@ -17,7 +18,7 @@ export function useCodeSnippets({ gatewayUrl, apiKey, model }: SnippetParams): {
 } {
   const { language } = useI18n()
 
-  const anthropicUrl = gatewayUrl.trim().replace(/\/+$/, "") || "http://localhost:3000"
+  const anthropicUrl = gatewayUrl.trim().replace(/\/+$/, "") || DEFAULT_ENDPOINT
   const openaiUrl = `${anthropicUrl}/v1`
   const resolvedKey = apiKey.trim() || "sk-obersai-api-key"
   const resolvedModel = model.trim() || "your-model-id"

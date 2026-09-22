@@ -3,8 +3,13 @@ import { Brand } from "@/components/common/brand"
 import { LanguageSwitcher } from "./language-switcher"
 import { Button } from "@/components/ui/button"
 import { useI18n } from "@/i18n"
+import { DEFAULT_ENDPOINT } from "@/config"
 
-export function Header() {
+interface HeaderProps {
+  dashboardUrl?: string
+}
+
+export function Header({ dashboardUrl = DEFAULT_ENDPOINT }: HeaderProps) {
   const { t } = useI18n()
 
   return (
@@ -15,7 +20,7 @@ export function Header() {
           <a className="hidden hover:text-foreground sm:block" href="#integrasi">
             {t.header.integrations}
           </a>
-          <a className="hidden hover:text-foreground sm:block" href="http://localhost:3000" target="_blank" rel="noreferrer">
+          <a className="hidden hover:text-foreground sm:block" href={dashboardUrl} target="_blank" rel="noreferrer">
             {t.header.dashboard}
           </a>
           <LanguageSwitcher />

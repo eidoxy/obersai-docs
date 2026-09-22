@@ -12,11 +12,12 @@ import { TroubleshootingSection } from "@/components/sections/troubleshooting-se
 import { useActiveSection } from "@/hooks/use-active-section"
 import { useCodeSnippets } from "@/hooks/use-code-snippets"
 import { I18nProvider, useI18n } from "@/i18n"
+import { DEFAULT_ENDPOINT } from "@/config"
 
 const sectionIds = ["mulai", "endpoint", "integrasi", "troubleshooting"]
 
 function AppContent() {
-  const [gatewayUrl, setGatewayUrl] = useState("http://localhost:3000")
+  const [gatewayUrl, setGatewayUrl] = useState(DEFAULT_ENDPOINT)
   const [apiKey, setApiKey] = useState("sk-obersai-api-key")
   const [model, setModel] = useState("your-model-id")
   const [showKey, setShowKey] = useState(false)
@@ -37,7 +38,7 @@ function AppContent() {
       >
         {t.common.skipToContent}
       </a>
-      <Header />
+      <Header dashboardUrl={gatewayUrl || DEFAULT_ENDPOINT} />
 
       <div className="page-shell mx-auto grid lg:grid-cols-[248px_minmax(0,1fr)]">
         <Sidebar activeSection={activeSection} />
